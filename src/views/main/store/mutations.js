@@ -19,3 +19,8 @@ export function setIsLoading(state, isLoading) {
 export function setIsLogin(state, isLogin) {
   state.isLogin = isLogin;
 }
+
+export function setPopup(state, { open, message }) {
+  state.popup.open = open;
+  state.popup.message = message;
+}

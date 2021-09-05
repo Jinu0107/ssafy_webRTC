@@ -12,15 +12,14 @@ export function requestInfo({ state }, accessToken) {
 }
 
 export function requestLogin({ state }, payload) {
-  console.log('requestLogin', state, payload)
   const url = '/auth/login'
   let body = payload;
-  return $axios.post(url, body)
-  // return {
-  //   data: {
-  //     accessToken: "token"
-  //   }
-  // };
+  // return $axios.post(url, body)
+  return {
+    data: {
+      accessToken: "token"
+    }
+  };
 }
 
 export function requestLogout({ state }) {

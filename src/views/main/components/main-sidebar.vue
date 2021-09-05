@@ -86,9 +86,21 @@ export default {
       store.commit("root/setMenuActive", param);
       const MenuItems = store.getters["root/getMenus"];
       let keys = Object.keys(MenuItems);
-      router.push({
-        name: keys[param]
-      });
+      if (keys[param] != "logout") {
+        router.push({
+          name: keys[param]
+        });
+      } else {
+        store.commit("root/setPopup", {
+          open: true,
+          message: "로그아웃 되었습니다."
+        });
+        store.dispatch("root/requestLogout");
+        store.commit("root/setIsLogin", false);
+        router.push({
+          name: keys[0]
+        });
+      }
     };
 
     return { state, menuSelect };

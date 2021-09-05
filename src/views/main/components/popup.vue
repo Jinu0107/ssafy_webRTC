@@ -28,7 +28,7 @@ export default {
     });
 
     const handleClose = () => {
-      emit("closePopup");
+      store.commit("root/setPopup", { open: false, message: "" });
     };
 
     return { state, handleClose };

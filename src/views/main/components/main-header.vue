@@ -26,15 +26,7 @@
               로그인
             </el-button>
           </template>
-          <template v-else>
-            <el-button
-              type="primary"
-              icon="el-icon-switch-button"
-              @click="clickLogout"
-            >
-              로그아웃
-            </el-button>
-          </template>
+          <template v-else> </template>
         </div>
       </div>
     </div>
@@ -68,16 +60,7 @@
                 회원가입
               </el-button>
             </template>
-            <template v-else>
-              <el-button
-                type="primary"
-                icon="el-icon-switch-button"
-                class="mobile-sidebar-btn"
-                @click="clickLogout"
-              >
-                로그아웃
-              </el-button>
-            </template>
+            <template v-else> </template>
           </div>
           <el-menu
             :default-active="String(state.activeIndex)"
@@ -150,9 +133,21 @@ export default {
       store.commit("root/setMenuActive", param);
       const MenuItems = store.getters["root/getMenus"];
       let keys = Object.keys(MenuItems);
-      router.push({
-        name: keys[param]
-      });
+      if (keys[param] != "logout") {
+        router.push({
+          name: keys[param]
+        });
+      } else {
+        store.commit("root/setPopup", {
+          open: true,
+          message: "로그아웃 되었습니다."
+        });
+        store.dispatch("root/requestLogout");
+        store.commit("root/setIsLogin", false);
+        router.push({
+          name: keys[0]
+        });
+      }
     };
 
     const clickLogo = () => {
@@ -172,11 +167,6 @@ export default {
       emit("openRegisterDialog");
     };
 
-    const clickLogout = () => {
-      store.dispatch("root/requestLogout");
-      store.commit("root/setIsLogin", false);
-    };
-
     const changeCollapse = () => {
       state.isCollapse = !state.isCollapse;
     };
@@ -187,7 +177,6 @@ export default {
       clickLogo,
       clickLogin,
       clickRegister,
-      clickLogout,
       changeCollapse
     };
   }

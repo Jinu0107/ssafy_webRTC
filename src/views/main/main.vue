@@ -66,9 +66,6 @@ export default {
       return this.$store.getters["root/getPopup"].open;
     }
   },
-  beforeCreate() {
-    window.STORE = this.$store;
-  },
   created() {
     const accessToken = localStorage.accessToken;
     if (accessToken) {

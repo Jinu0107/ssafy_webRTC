@@ -37,7 +37,7 @@ export default {
   isLogin: false,
   popup: {
     open: false,
-    title: "",
+    title: "메시지",
     message: "",
   }
 }

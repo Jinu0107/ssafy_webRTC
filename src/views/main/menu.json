@@ -1,6 +1,6 @@
 {
   "home" : {
-    "name" : "홈",       
+    "name" : "홈",
     "hidden" : false,
     "path" : "/",
     "icon" : "el-icon-s-home",
@@ -11,6 +11,12 @@
     "hidden" : false,
     "path" : "/history",
     "icon" : "el-icon-s-order",
+    "children" : []
+  },
+  "logout" : {
+    "name" : "로그아웃",
+    "hidden" : false,
+    "icon" : "el-icon-switch-button",
     "children" : []
   }
 }

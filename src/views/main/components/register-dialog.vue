@@ -141,7 +141,7 @@ export default {
       duplicateCheckedId: ""
     };
 
-    const validatorNotEssentialData = (rule, value, callback) => {
+    const validatorNormal = (rule, value, callback) => {
       if (value.length > 30) {
         state.btnDisabled = true;
         callback(new Error("최대 30자까지 입력 가능합니다."));
@@ -239,25 +239,27 @@ export default {
     };
 
     const duplicateIdCheck = async (rule, value, callback) => {
-      console.log("das");
-      try {
-        let model = {
-          id: state.form.id
-        };
-        const { data } = await store.dispatch("root/requestCheckUserId", model);
-        if (data.statusCode === 409) {
-          alert("이미 존재하는 아이디 입니다");
-        } else {
-          alert("사용 가능한 아이디 입니다.");
-        }
+      let model = {
+        id: state.form.id
+      };
+      const { data } = await store.dispatch("root/requestCheckUserId", model);
+      if (data.statusCode === 409) {
+        store.commit("root/setPopup", {
+          open: true,
+          message: "이미 존재하는 아이디입니다."
+        });
+        state.form.idCheck = false;
+      } else {
+        store.commit("root/setPopup", {
+          open: true,
+          message: "사용 가능한 아이디입니다."
+        });
         state.form.idCheck = true;
         validatorPassed.duplicateCheckedId = state.form.id;
-        let targetFields = ["name", "id", "password", "checkPassword"];
-        targetFields = targetFields.filter(item => !validatorPassed[item]);
-        validateOtherField(targetFields);
-      } catch (e) {
-        console.error(e);
       }
+      let targetFields = ["name", "id", "password", "checkPassword"];
+      targetFields = targetFields.filter(item => !validatorPassed[item]);
+      validateOtherField(targetFields);
     };
 
     const validateOtherField = array => {
@@ -284,11 +286,9 @@ export default {
         align: "left"
       },
       rules: {
-        deparment: [
-          { validator: validatorNotEssentialData, trigger: "change" }
-        ],
-        position: [{ validator: validatorNotEssentialData, trigger: "change" }],
-        name: [{ validator: validatorNotEssentialData, trigger: "change" }],
+        deparment: [{ validator: validatorNormal, trigger: "change" }],
+        position: [{ validator: validatorNormal, trigger: "change" }],
+        name: [{ validator: validatorNormal, trigger: "change" }],
         id: [{ validator: validatorId, trigger: "change" }],
         password: [{ validator: validatorPass, trigger: "change" }],
         checkPassword: [{ validator: validatorCheckPass, trigger: "change" }]
