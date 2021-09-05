@@ -9,4 +9,10 @@ const DEFAULT_ACCEPT_TYPE = 'application/json'
 axios.defaults.baseURL = BASE_URL
 axios.defaults.headers['Content-Type'] = DEFAULT_ACCEPT_TYPE
 
+axios.interceptors.response.use((result) => {
+  console.log(result);
+
+  return Promise.reject(result)
+});
+
 export default { VueAxios, axios }

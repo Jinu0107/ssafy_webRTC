@@ -2,25 +2,25 @@
 import $axios from 'axios'
 
 export function setAxiosHeader({ state }, accessToken) {
-  $axios.defaults.headers.Authorization = 'Bearer ' + accessToken;
+  $axios.defaults.headers.Authorization = 'Bearer ' + accessToken
 }
 
 export function requestInfo({ state }, accessToken) {
   const url = '/users/me';
-  $axios.defaults.headers.Authorization = 'Bearer ' + accessToken;
+  $axios.defaults.headers.Authorization = 'Bearer ' + accessToken
   return $axios.get(url);
 }
 
 export function requestLogin({ state }, payload) {
   console.log('requestLogin', state, payload)
   const url = '/auth/login'
-  let body = payload
-  // return $axios.post(url, body) 불가능
-  return {
-    data: {
-      accessToken: "token"
-    }
-  };
+  let body = payload;
+  return $axios.post(url, body)
+  // return {
+  //   data: {
+  //     accessToken: "token"
+  //   }
+  // };
 }
 
 export function requestLogout({ state }) {

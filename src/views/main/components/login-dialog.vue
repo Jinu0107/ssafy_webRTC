@@ -181,7 +181,7 @@ export default {
             store.commit("root/setIsLogin", true);
             store.dispatch("root/setAxiosHeader", data.accessToken);
           } catch (e) {
-            console.error(e);
+            console.log(e);
           }
           setTimeout(() => {
             // api 연결이 안 돼서 강제 로딩
